@@ -19,7 +19,7 @@ let citySearchHandler = function (event) {
 
 let getCityForecast = function () {
   let apiUrl =
-    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    "https://api.openweathermap.org/data/2.5/forecast?q=" +
     searchedCity +
     "&appid=24436c094ae63125e618e94d2ac2df4c&units=imperial";
 
