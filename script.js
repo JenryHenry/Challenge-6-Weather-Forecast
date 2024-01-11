@@ -11,11 +11,30 @@ let citySearchHandler = function (event) {
   console.log(searchedCity);
   if (searchedCity) {
     getCityWeather(searchedCity);
+    getCityForecast(searchedCity);
   } else {
     alert("Please enter a valid city");
   }
 };
 
+let getCityForecast = function () {
+  let apiUrl =
+    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    searchedCity +
+    "&appid=24436c094ae63125e618e94d2ac2df4c&units=imperial";
+
+  fetch(apiUrl)
+    .then(function (response) {
+      if (response.ok) {
+        response.json().then(displayForecast);
+      } else {
+        alert("Error:" + response.statusText);
+      }
+    })
+    .catch(function (error) {
+      alert("unable to connect to OpenWeather");
+    });
+};
 let getCityWeather = function () {
   let apiUrl =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
@@ -39,6 +58,18 @@ let displayWeather = function (weatherData) {
   console.log(weatherData);
   let cityName = document.querySelector("#city-name");
   cityName.textContent = weatherData.name;
+  let currentWeather = document.querySelector("#current-weather");
+  let currentTemp = currentWeather.querySelector("#temp");
+  let currentWind = currentWeather.querySelector("#wind");
+  let currentHum = currentWeather.querySelector("#humidity");
+
+  currentTemp.textContent = "Temperature: " + weatherData.main.temp + " °F";
+  currentWind.textContent = "Wind Speed: " + weatherData.wind.speed + " MPH";
+  currentHum.textContent = "Humidity: " + weatherData.main.humidity + " %";
+};
+
+let displayForecast = function (forecastData) {
+  console.log(forecastData);
 };
 // The API sends back the weather conditions of the city.
 // The site displays the weather conditions for that city in the current weather div, populating the list items with temperature, wind, and humidity.
