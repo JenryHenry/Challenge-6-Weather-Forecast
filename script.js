@@ -70,6 +70,19 @@ let displayWeather = function (weatherData) {
 
 let displayForecast = function (forecastData) {
   console.log(forecastData);
+  console.log(forecastData.list[10]);
+  let futureForecasts = [2, 10, 18, 26, 34];
+  nextDay = document.querySelector("#2");
+  thirdDay = document.querySelector("#10");
+  fourthDay = document.querySelector("#18");
+  fifthDay = document.querySelector("#26");
+  sixthDay = document.querySelector("#34");
+  let forecastDay = "";
+  for (var listItem = 2; listItem < 42; listItem += 8) {
+    forecastDay = listItem;
+    console.log(forecastDay);
+  }
+  let forecastEl = document.querySelector("#forecast-blocks");
 };
 // The API sends back the weather conditions of the city.
 // The site displays the weather conditions for that city in the current weather div, populating the list items with temperature, wind, and humidity.
