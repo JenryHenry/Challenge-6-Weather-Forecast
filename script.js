@@ -19,7 +19,7 @@ let citySearchHandler = function (event) {
 
 let getCityForecast = function () {
   let apiUrl =
-    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    "https://api.openweathermap.org/data/2.5/forecast?q=" +
     searchedCity +
     "&appid=24436c094ae63125e618e94d2ac2df4c&units=imperial";
 
@@ -67,20 +67,35 @@ let displayWeather = function (weatherData) {
   currentWind.textContent = "Wind Speed: " + weatherData.wind.speed + " MPH";
   currentHum.textContent = "Humidity: " + weatherData.main.humidity + " %";
 };
+let poopy = document.querySelector("#one").getAttribute("data-number");
+console.log(poopy);
 
 let displayForecast = function (forecastData) {
   console.log(forecastData);
   console.log(forecastData.list[10]);
-  let futureForecasts = [2, 10, 18, 26, 34];
-  nextDay = document.querySelector("#2");
-  thirdDay = document.querySelector("#10");
-  fourthDay = document.querySelector("#18");
-  fifthDay = document.querySelector("#26");
-  sixthDay = document.querySelector("#34");
+
+  let nextDay = document.querySelector("#one");
+  let thirdDay = document.querySelector("#two");
+  let fourthDay = document.querySelector("#three");
+  let fifthDay = document.querySelector("#four");
+  let sixthDay = document.querySelector("#five");
   let forecastDay = "";
-  for (var listItem = 2; listItem < 42; listItem += 8) {
-    forecastDay = listItem;
-    console.log(forecastDay);
+  let futureForecasts = [nextDay, thirdDay, fourthDay, fifthDay, sixthDay];
+  for (var i = 0; i < 5; i++) {
+    let indForecast = futureForecasts[i];
+    console.log(indForecast);
+    let dataNumber = indForecast.getAttribute("data-number");
+    console.log(dataNumber);
+    let dayDate = forecastData.list[dataNumber].dt_txt;
+    console.log(dayDate);
+    console.log(forecastData.list);
+    let dayTemp = forecastData.list[dataNumber].main.temp;
+    let dayWind = forecastData.list[dataNumber].wind.speed;
+    let dayHum = forecastData.list[dataNumber].main.humidity;
+    indForecast.querySelector(".date").textContent = dayDate;
+    indForecast.querySelector(".temp").textContent = dayTemp + " °F";
+    indForecast.querySelector(".wind").textContent = dayWind + " MPH";
+    indForecast.querySelector(".humidity").textContent = dayHum + " %";
   }
   let forecastEl = document.querySelector("#forecast-blocks");
 };
